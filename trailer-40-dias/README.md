@@ -21,7 +21,8 @@ A trilha é sintetizada pelo próprio script (dá para silenciar no Instagram e
 colocar uma música por cima, se preferir).
 
 ## Arquivos
-- `saida/trailer-faltam-40-dias.mp4` — vídeo pronto para Reels/Stories/WhatsApp.
+- `saida/trailer-faltam-40-dias.mp4` — vídeo em qualidade máxima (Reels/Stories).
+- `saida/trailer-faltam-40-dias-whatsapp.mp4` — versão mais leve (21 MB) para WhatsApp.
 - `gerar_trailer.py` — gera o vídeo a partir do vídeo original (o `.MOV` do
   iPhone, em HDR, não fica no repositório).
 
