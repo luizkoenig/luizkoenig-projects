@@ -19,7 +19,6 @@
     --bege: #e7d7c0;
     --vermelho: #aa1b1b;
     --vinho: #7d1d17;
-    --papel: #fbf6ed;
   }
   @page { size: 1080px 1350px; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,167 +26,134 @@
   body { font-family: 'Poppins', sans-serif; font-weight: 300; }
 
   .pg { width: 1080px; height: 1350px; position: relative; overflow: hidden; break-after: page; margin: 0 auto; }
-  .pg.laranja { background: var(--laranja); }
-  .pg.bege { background: var(--bege); }
-  .pg::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: url(assets/linho.jpg) center / 1400px; mix-blend-mode: multiply; opacity: .24;
+  .pg.laranja { background: var(--laranja); color: #fff; }
+  .pg.bege { background: var(--bege); color: var(--vinho); }
+  /* textura de linho do convite, por cima de tudo, para a página ser uma peça só */
+  .pg::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 10;
+    background: url(assets/linho.jpg) center / 1400px; mix-blend-mode: multiply; opacity: .22;
   }
-  .abs { position: absolute; }
+  .pg > * { position: absolute; }
 
-  /* Cartão de papel com recorte orgânico */
-  .cartao { position: absolute; width: 880px; height: 1200px; filter: drop-shadow(0 18px 22px rgba(70, 30, 8, .32)) drop-shadow(0 2px 3px rgba(70, 30, 8, .2)); }
-  .cartao .corte { position: absolute; inset: 0; background: var(--papel); overflow: hidden; }
-  .cartao .corte::before {
-    content: ''; position: absolute; inset: 0; background: url(assets/linho.jpg) center / 700px;
-    mix-blend-mode: multiply; opacity: .12; pointer-events: none; z-index: 5;
-  }
-  .ilhos {
-    position: absolute; width: 34px; height: 34px; border-radius: 50%; z-index: 6;
-    background: radial-gradient(circle at 50% 50%, #6b5a45 0 7px, #d8bd84 8px, #b8955a 11px, #e9d3a1 14px, #9c7a45 17px);
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .35);
-  }
-  .deco { position: absolute; filter: drop-shadow(0 5px 7px rgba(60, 30, 10, .28)); }
-
-  .script { font-family: 'Allison', cursive; line-height: 1; color: var(--vermelho); }
+  .script { font-family: 'Allison', cursive; line-height: 1; }
   .brittany { font-family: 'Brittany', cursive; line-height: 1; }
   .serifa { font-family: 'Tenor Sans', sans-serif; }
-  .caps { text-transform: uppercase; letter-spacing: .28em; }
-  .centro { position: absolute; left: 0; right: 0; text-align: center; }
-  .texto { font-family: 'Tenor Sans', sans-serif; color: var(--vinho); font-size: 25px; line-height: 1.6; }
-  .fio { position: absolute; left: 50%; width: 120px; margin-left: -60px; height: 1px; background: var(--vinho); opacity: .45; }
+  .caps { text-transform: uppercase; letter-spacing: .3em; }
+  .centro { left: 0; right: 0; text-align: center; }
+  .texto { font-family: 'Tenor Sans', sans-serif; font-size: 27px; line-height: 1.6; }
+  .fio { left: 50%; width: 140px; margin-left: -70px; height: 1px; background: currentColor; opacity: .5; }
 </style>
 </head>
 <body>
 
 <!-- ============ 1. CAPA ============ -->
-<section class="pg laranja">
-  <img class="deco" src="assets/flor-seca.png" alt="" style="left:-20px;top:40px;width:260px;transform:rotate(-30deg);">
-  <div class="cartao" data-forma="b" style="left:128px;top:92px;transform:rotate(5deg);opacity:.97"><div class="corte"></div></div>
-  <div class="cartao" data-forma="a" style="left:92px;top:80px;transform:rotate(-2deg);">
-    <div class="corte">
-      <img src="assets/igreja-aquarela.jpg" alt="" class="abs"
-           style="left:40px;top:10px;width:800px;height:640px;object-fit:cover;object-position:50% 38%;mix-blend-mode:multiply;
-                  -webkit-mask-image:linear-gradient(#000 70%, transparent 100%);mask-image:linear-gradient(#000 70%, transparent 100%);">
-      <div class="centro serifa caps" style="top:700px;font-size:30px;letter-spacing:.42em;color:var(--vinho);">Manual dos</div>
-      <div class="centro script" style="top:730px;font-size:200px;">Padrinhos</div>
-      <div class="centro brittany" style="top:990px;font-size:78px;color:var(--laranja);">Luiz e Thamiris</div>
-      <div class="centro caps" style="top:1110px;font-size:20px;color:var(--vinho);font-weight:400;letter-spacing:.45em;">07 . 11 . 2026</div>
-    </div>
-    <div class="ilhos" style="left:423px;top:34px"></div>
-  </div>
-  <img class="deco" src="assets/flores-amarelas.png" alt="" style="left:800px;top:1110px;width:280px;transform:rotate(-24deg);">
+<section class="pg bege">
+  <div id="manchaCapa" style="inset:0"></div>
+  <img src="assets/igreja-aquarela.jpg" alt=""
+       style="left:190px;top:40px;width:700px;height:760px;object-fit:cover;object-position:50% 30%;mix-blend-mode:multiply;
+              -webkit-mask-image:radial-gradient(ellipse 60% 62% at 50% 44%, #000 62%, transparent 100%);
+              mask-image:radial-gradient(ellipse 60% 62% at 50% 44%, #000 62%, transparent 100%);">
+  <div class="centro serifa caps" style="top:810px;font-size:30px;letter-spacing:.45em;">Manual dos</div>
+  <div class="centro script" style="top:838px;font-size:210px;color:var(--vermelho);">Padrinhos</div>
+  <div class="centro brittany" style="top:1085px;font-size:84px;color:var(--laranja);">Luiz e Thamiris</div>
+  <div class="centro caps" style="top:1232px;font-size:21px;font-weight:400;letter-spacing:.5em;">07 . 11 . 2026</div>
 </section>
 
 <!-- ============ 2. PADRINHOS ============ -->
 <section class="pg bege">
-  <img class="deco" src="assets/flor-seca.png" alt="" style="left:860px;top:-20px;width:230px;transform:rotate(30deg);">
-  <div class="cartao" data-forma="b" style="left:100px;top:75px;transform:rotate(1.5deg);">
-    <div class="corte">
-      <div class="centro script" style="top:92px;font-size:170px;">Padrinhos</div>
-      <div class="centro texto" style="top:268px;left:110px;right:110px;">
-        Para vocês, um clássico que nunca erra: todos no mesmo traje, alinhados e elegantes ao nosso lado.
-      </div>
-      <div class="abs" id="artePadrinhos" style="left:40px;right:40px;top:420px;height:560px;"></div>
-      <div class="abs" id="pontosPadrinhos" style="left:0;right:0;top:1010px;display:flex;justify-content:center;gap:58px;"></div>
-    </div>
-    <div class="ilhos" style="left:430px;top:36px"></div>
+  <div id="manchaPadrinhos" style="inset:0"></div>
+  <div class="centro script" style="top:58px;font-size:190px;color:var(--vermelho);">Padrinhos</div>
+  <div class="centro texto" style="top:262px;left:150px;right:150px;">
+    Um clássico que nunca erra: todos no mesmo traje, alinhados e elegantes ao nosso lado.
   </div>
-  <img class="deco" src="assets/flor-prensada.png" alt="" style="left:28px;top:1130px;width:170px;transform:rotate(-14deg);">
+  <div id="artePadrinhos" style="left:40px;right:40px;top:400px;height:650px;"></div>
+  <div id="pontosPadrinhos" class="centro" style="top:1100px;display:flex;justify-content:center;gap:80px;"></div>
 </section>
 
 <!-- ============ 3. MADRINHAS ============ -->
-<section class="pg laranja">
-  <img class="deco" src="assets/flores-amarelas.png" alt="" style="left:-40px;top:40px;width:270px;transform:rotate(18deg);">
-  <div class="cartao" data-forma="a" style="left:100px;top:75px;transform:rotate(-1.5deg);">
-    <div class="corte">
-      <div class="centro script" style="top:92px;font-size:170px;">Madrinhas</div>
-      <div class="centro texto" style="top:268px;left:100px;right:100px;">
-        Queremos vocês de <b style="font-weight:400;color:#c93a6e">rosa</b>, <b style="font-weight:400;color:var(--vermelho)">vermelho</b>
-        ou <b style="font-weight:400;color:var(--laranja)">laranja</b>! Não tem tom definido, nem tecido:
-        escolham o que fizer cada uma se sentir mais à vontade.
-      </div>
-      <div class="abs" id="arteMadrinhas" style="left:26px;right:26px;top:440px;height:610px;"></div>
-      <div class="centro caps" style="top:1082px;font-size:17px;font-weight:400;color:var(--vinho);letter-spacing:.4em;">Rosa · Vermelho · Laranja</div>
-    </div>
-    <div class="ilhos" style="left:423px;top:34px"></div>
+<section class="pg bege">
+  <div id="manchaMadrinhas" style="inset:0"></div>
+  <div class="centro script" style="top:58px;font-size:190px;color:var(--vermelho);">Madrinhas</div>
+  <div class="centro texto" style="top:262px;left:120px;right:120px;">
+    Queremos vocês de <span style="color:#e0137a">rosa</span>, <span style="color:#e0081f">vermelho</span>
+    ou <span style="color:#f2520a">laranja</span>! Não tem tom definido, nem tecido:
+    escolham o que fizer cada uma se sentir mais à vontade.
   </div>
-  <img class="deco" src="assets/flor-seca.png" alt="" style="left:880px;top:1070px;width:220px;transform:rotate(-150deg);">
+  <div id="arteMadrinhas" style="left:20px;right:20px;top:420px;height:690px;"></div>
+  <div class="centro caps" style="top:1185px;font-size:19px;font-weight:400;letter-spacing:.45em;">Rosa · Vermelho · Laranja</div>
+  <div class="centro serifa" style="top:1228px;font-size:22px;opacity:.85;">qualquer tom, qualquer tecido</div>
 </section>
 
 <!-- ============ 4. ENCERRAMENTO ============ -->
-<section class="pg bege">
-  <img class="deco" src="assets/envelope.png" alt="" style="left:700px;top:-60px;width:360px;transform:rotate(14deg);">
-  <div class="cartao" data-forma="b" style="left:100px;top:75px;transform:rotate(-1deg);">
-    <div class="corte">
-      <div class="centro script" style="top:100px;font-size:150px;color:var(--laranja);">Obrigado por</div>
-      <div class="centro" style="top:252px;">
-        <span style="display:inline-block;background:var(--laranja);color:#fff;font-size:38px;font-weight:400;padding:2px 22px 5px;">estarem ao nosso lado.</span>
-      </div>
-      <div class="centro texto" style="top:350px;left:120px;right:120px;">
-        Ter vocês com a gente no altar é um presente. Qualquer dúvida sobre o traje, é só chamar!
-      </div>
-      <div class="abs" id="arteFinal" style="left:40px;right:40px;top:500px;height:470px;"></div>
-      <div class="fio" style="top:1000px"></div>
-      <div class="centro serifa" style="top:1024px;font-size:25px;line-height:1.55;color:var(--vinho);">
-        7 de novembro de 2026 · 4:30 PM<br>Igreja do Sertão do Rio Bonito · Braço do Norte
-      </div>
-      <div class="centro caps" style="top:1118px;font-size:15px;font-weight:400;color:var(--vinho);letter-spacing:.3em;opacity:.85">WhatsApp (48) 99958-4582</div>
-    </div>
-    <div class="ilhos" style="left:423px;top:34px"></div>
+<section class="pg laranja">
+  <div id="manchaFinal" style="inset:0"></div>
+  <div class="centro brittany" style="top:120px;font-size:120px;">Luiz e Thamiris</div>
+  <div class="centro script" style="top:330px;font-size:150px;">Obrigado por</div>
+  <div class="centro script" style="top:450px;font-size:150px;">estarem ao nosso lado</div>
+  <div class="centro texto" style="top:650px;left:170px;right:170px;font-size:29px;">
+    Ter vocês com a gente no altar é um presente.
+    Qualquer dúvida sobre o traje, é só chamar!
   </div>
+  <div class="fio" style="top:830px"></div>
+  <div class="centro caps" style="top:880px;font-size:26px;font-weight:300;letter-spacing:.3em;">7 de novembro de 2026 · 4:30 PM</div>
+  <div class="centro serifa" style="top:935px;font-size:30px;">Igreja do Sertão do Rio Bonito</div>
+  <div class="centro serifa" style="top:980px;font-size:24px;opacity:.9;">Braço do Norte</div>
+  <div class="fio" style="top:1060px"></div>
+  <div class="centro caps" style="top:1110px;font-size:20px;font-weight:400;letter-spacing:.35em;">WhatsApp</div>
+  <div class="centro serifa" style="top:1145px;font-size:34px;">(48) 99958-4582</div>
 </section>
 
 <script src="figuras.js"></script>
 <script>
-  // Recorte orgânico dos cartões (880 x 1200). A forma "b" é o espelho da "a".
-  const FORMA = [
-    [60, 120], [60, 40, 180, 10, 300, 30], [380, 44, 420, 60, 470, 50], [560, 30, 700, 0, 800, 50],
-    [870, 86, 880, 170, 860, 260], [845, 330, 820, 380, 830, 460], [845, 560, 880, 640, 872, 760],
-    [865, 880, 830, 940, 845, 1030], [860, 1120, 820, 1195, 720, 1196], [560, 1198, 440, 1175, 330, 1188],
-    [210, 1200, 60, 1205, 30, 1120], [5, 1050, 40, 980, 32, 880], [22, 760, 0, 680, 20, 560],
-    [38, 470, 55, 400, 40, 320], [28, 250, 30, 170, 60, 120],
-  ];
-  function caminho(espelho) {
-    const X = (x) => (espelho ? 880 - x : x);
-    return FORMA.map((p, i) => i === 0
-      ? `M${X(p[0])} ${p[1]}`
-      : `C${X(p[0])} ${p[1]} ${X(p[2])} ${p[3]} ${X(p[4])} ${p[5]}`).join(' ') + ' Z';
+  // Manchas de aquarela pintadas direto na página (sem recortes colados).
+  let manchaId = 0;
+  function mancha(el, blobs, { w = 1080, h = 1350 } = {}) {
+    const id = `m${manchaId++}`;
+    el.innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" style="position:absolute;inset:0">
+      <defs><filter id="${id}" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="26" result="b"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="${manchaId * 5}" result="n"/>
+        <feDisplacementMap in="b" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+      </filter></defs>
+      <g filter="url(#${id})" style="mix-blend-mode:multiply">${blobs.map(([x, y, rx, ry, cor, o]) =>
+        `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${cor}" opacity="${o}"/>`).join('')}</g></svg>`;
   }
-  document.querySelectorAll('.cartao').forEach((c) => {
-    c.querySelector('.corte').style.clipPath = `path('${caminho(c.dataset.forma === 'b')}')`;
-  });
+  mancha(document.getElementById('manchaCapa'), [
+    [80, 1300, 260, 140, '#f19a86', .35], [1010, 1280, 240, 150, '#f6c86e', .4], [540, 1340, 300, 60, '#e98a6a', .25],
+  ]);
+  mancha(document.getElementById('manchaPadrinhos'), [
+    [540, 1030, 500, 70, '#b8927a', .35], [120, 120, 220, 160, '#f19a86', .28], [980, 170, 220, 170, '#f6c86e', .32],
+  ]);
+  mancha(document.getElementById('manchaMadrinhas'), [
+    [540, 1100, 520, 70, '#c99a82', .35], [100, 110, 230, 170, '#f59ab8', .3], [990, 150, 230, 170, '#f7b25e', .34],
+  ]);
+  mancha(document.getElementById('manchaFinal'), [
+    [100, 90, 260, 180, '#c2182e', .25], [990, 1260, 280, 200, '#f6c86e', .35], [960, 110, 200, 140, '#f0a3a0', .3],
+    [110, 1260, 240, 160, '#c2182e', .2],
+  ]);
 
   // Madrinhas: 9 figuras sobrepostas, com a bolinha da cor de cada uma embaixo.
   (() => {
-    const passo = 86, w = passo * 8 + 200, h = 680;
-    const itens = MADRINHAS.map((m, i) => ({ ...m, x: i * passo, y: 6 + (i % 2) * 6, escala: 1 - (i % 3 === 1 ? 0.03 : 0) }));
+    const passo = 90, w = passo * 8 + 200, h = 560;
+    const itens = MADRINHAS.map((m, i) => ({ ...m, x: i * passo, y: 6 + (i % 2) * 5, escala: i % 3 === 1 ? 0.97 : 1 }));
     const pontos = MADRINHAS.map((m, i) =>
-      `<circle cx="${i * passo + 100}" cy="636" r="15" fill="${m.cor}" filter="url(#wc${m.seed})"/>`).join('');
+      `<circle cx="${i * passo + 100}" cy="538" r="13" fill="${m.cor}" filter="url(#wc${m.seed})"/>`).join('');
     document.getElementById('arteMadrinhas').innerHTML = cena(itens, { w, h, extra: pontos });
   })();
 
   // Padrinhos: 6 figuras sobrepostas.
   (() => {
-    const passo = 104, w = passo * 5 + 200, h = 600;
-    const itens = PADRINHOS.map((p, i) => ({ ...p, x: i * passo, y: 10 + (i % 2) * 6, escala: [1, .98, 1.02, 1, .97, 1.01][i] }));
+    const passo = 118, w = passo * 5 + 200, h = 530;
+    const itens = PADRINHOS.map((p, i) => ({ ...p, x: i * passo, y: 12 + (i % 2) * 6, escala: [1, .98, 1.02, 1, .97, 1.01][i] }));
     document.getElementById('artePadrinhos').innerHTML = cena(itens, { w, h });
-    const traje = [['Terno', 'preto', '#1f1f23'], ['Gravata', 'cinza', '#8f9298'], ['Camisa', 'branca', '#ffffff']];
+    const traje = [['Terno', 'preto', '#1f1f25'], ['Gravata', 'cinza', '#8e929a'], ['Camisa', 'branca', '#fdfaf3']];
     document.getElementById('pontosPadrinhos').innerHTML = traje.map(([peca, cor, hex]) => `
-      <div style="text-align:center;color:var(--vinho)">
-        <div style="width:46px;height:46px;border-radius:50%;background:${hex};margin:0 auto 12px;
-                    box-shadow:inset 0 -5px 8px rgba(0,0,0,.15), 0 0 0 1.5px rgba(125,29,23,.35)"></div>
-        <div class="serifa" style="font-size:25px">${peca}</div>
-        <div class="caps" style="font-size:13px;font-weight:400;letter-spacing:.35em;opacity:.8">${cor}</div>
+      <div style="text-align:center">
+        <div style="width:54px;height:54px;border-radius:50%;background:${hex};margin:0 auto 14px;
+                    box-shadow:inset 0 -6px 9px rgba(0,0,0,.15), 0 0 0 1.5px rgba(125,29,23,.3)"></div>
+        <div class="serifa" style="font-size:28px">${peca}</div>
+        <div class="caps" style="font-size:14px;font-weight:400;letter-spacing:.35em;opacity:.8">${cor}</div>
       </div>`).join('');
-  })();
-
-  // Encerramento: padrinhos e madrinhas juntos.
-  (() => {
-    const grupo = [MADRINHAS[0], PADRINHOS[0], MADRINHAS[4], PADRINHOS[1], MADRINHAS[7], PADRINHOS[2], MADRINHAS[2], PADRINHOS[3]];
-    const passo = 90, w = passo * 7 + 200, h = 600;
-    document.getElementById('arteFinal').innerHTML =
-      cena(grupo.map((g, i) => ({ ...g, x: i * passo, y: 10 })), { w, h });
   })();
 </script>
 </body>
