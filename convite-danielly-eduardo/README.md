@@ -31,3 +31,21 @@ escorrendo no papel molhado.
 node build.js
 ```
 (requer Playwright/Chromium)
+
+## Arquivo fechado para gráfica (CMYK)
+Em `saida/impressao/`, um PDF por versão, com e sem marcas de corte:
+
+- **Cor:** CMYK, perfil ISO Coated v2 (ECI) = FOGRA39 (`assets/ISOcoated_v2_eci.icc`,
+  da European Color Initiative, de distribuição livre), embutido como OutputIntent.
+- **Texto e fios cinza:** só preto (K), em sobreposição, para não borrar por registro.
+- **Resolução:** 600 dpi. **Limite de tinta:** 330%.
+- **Sangria:** 3 mm em cada lado (TrimBox/BleedBox marcados no PDF).
+  Vertical: 127 × 177,8 mm no corte (133 × 183,8 mm com sangria).
+  Horizontal: 177,8 × 127 mm no corte (183,8 × 133 mm com sangria).
+- `_marcas_de_corte.pdf`: mesma arte com marcas de corte em cor de registro, numa
+  margem de 10 mm. Para gráficas online (que pedem só sangria) use o PDF sem marcas.
+
+Gerar de novo (requer Playwright e Python 3 com Pillow e NumPy):
+```
+node impressao.js
+```
