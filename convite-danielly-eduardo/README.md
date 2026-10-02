@@ -39,11 +39,11 @@ Em `saida/impressao/`, um PDF por versão, com e sem marcas de corte:
   da European Color Initiative, de distribuição livre), embutido como OutputIntent.
 - **Texto e fios cinza:** só preto (K), em sobreposição, para não borrar por registro.
 - **Resolução:** 600 dpi. **Limite de tinta:** 330%.
-- **Sangria:** 3 mm em cada lado (TrimBox/BleedBox marcados no PDF).
-  Vertical: 127 × 177,8 mm no corte (133 × 183,8 mm com sangria).
-  Horizontal: 177,8 × 127 mm no corte (183,8 × 133 mm com sangria).
-- `_marcas_de_corte.pdf`: mesma arte com marcas de corte em cor de registro, numa
-  margem de 10 mm. Para gráficas online (que pedem só sangria) use o PDF sem marcas.
+- **Sem sangria:** o PDF tem o tamanho final do cartão (TrimBox marcado).
+  Vertical: 127 × 177,8 mm. Horizontal: 177,8 × 127 mm.
+  Para voltar a ter sangria, mude `SANGRIA_MM` no `impressao.py` (ex.: 3).
+- `_marcas_de_corte.pdf`: mesma arte com marcas de corte em cor de registro, a 3 mm
+  do corte, numa margem de 10 mm.
 
 Gerar de novo (requer Playwright e Python 3 com Pillow e NumPy):
 ```

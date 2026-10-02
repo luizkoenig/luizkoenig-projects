@@ -1,4 +1,4 @@
-// Gera o arquivo fechado para gráfica: CMYK (FOGRA39), 600 dpi, sangria de 3 mm.
+// Gera o arquivo fechado para gráfica: CMYK (FOGRA39), 600 dpi, no tamanho final (sem sangria).
 // Uso: node impressao.js   (requer Playwright e Python 3 com Pillow)
 //
 // Renderiza cada versão em duas camadas e o impressao.py as junta:

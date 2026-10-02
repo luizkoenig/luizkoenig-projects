@@ -2,7 +2,7 @@
 
 - fundo (RGB) -> CMYK pelo perfil ISO Coated v2 (ECI) = FOGRA39, intenção perceptual
 - texto -> só preto (K), em sobreposição, com a tonalidade de cinza convertida para % de K
-- sangria de 3 mm por espelhamento das bordas
+- sem sangria: o PDF tem o tamanho final do cartão (SANGRIA_MM > 0 espelha as bordas)
 - PDF com MediaBox/BleedBox/TrimBox e OutputIntent FOGRA39; uma versão com marcas de corte
 """
 import io
@@ -21,7 +21,7 @@ SAIDA = os.path.join(AQUI, 'saida', 'impressao')
 PERFIL = os.path.join(AQUI, 'assets', 'ISOcoated_v2_eci.icc')
 
 DPI = 600
-SANGRIA_MM = 3
+SANGRIA_MM = 0              # a gráfica pediu o arquivo no tamanho final, sem sangria
 MARGEM_MARCAS_MM = 10        # área em volta do cartão para as marcas de corte
 LIMITE_TINTA = 3.3           # 330%, limite de carga total do FOGRA39
 
@@ -95,8 +95,8 @@ def pdf(caminho, img, pol, marcas, titulo):
 
     conteudo = f'q {num(corte_w + 2 * b)} 0 0 {num(corte_h + 2 * b)} {num(m - b, m - b)} cm /Im0 Do Q\n'
     if marcas:
-        # marcas de corte em cor de registro, começando 1 mm fora da sangria
-        ini, fim = b + mm_pt(1), m - mm_pt(1)
+        # marcas de corte em cor de registro, começando 1 mm fora da sangria (ou 3 mm do corte, sem sangria)
+        ini, fim = (b + mm_pt(1) if b else mm_pt(3)), m - mm_pt(1)
         linhas = []
         for x in (trim[0], trim[2]):
             linhas += [(x, trim[1] - ini, x, trim[1] - fim), (x, trim[3] + ini, x, trim[3] + fim)]
@@ -146,4 +146,5 @@ if __name__ == '__main__':
         titulo = f'Convite Danielly e Eduardo - {v["nome"]}'
         pdf(base + '.pdf', img, v['pol'], marcas=False, titulo=titulo)
         pdf(base + '_marcas_de_corte.pdf', img, v['pol'], marcas=True, titulo=titulo)
-        print(f'{v["nome"]}: {img.width} x {img.height} px CMYK ({DPI} dpi, sangria {SANGRIA_MM} mm)')
+        print(f'{v["nome"]}: {img.width} x {img.height} px CMYK ({DPI} dpi, ' +
+              (f'sangria {SANGRIA_MM} mm)' if SANGRIA_MM else 'sem sangria)'))
