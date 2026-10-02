@@ -1,7 +1,8 @@
 // Desenha a aquarela num canvas: o céu azul vira papel e as bordas se dissolvem
 // de forma irregular, como tinta escorrendo no papel molhado.
 //   posicionar(W, H, iw, ih) -> { x, y, w, h }   onde a ilustração entra no canvas
-//   mascara(u, v, k, k2)     -> 0..1             opacidade (u, v em 0..1; k, k2 = ruído)
+//   mascara(u, v, k, k2, iv) -> 0..1             opacidade (u, v em 0..1; k, k2 = ruído;
+//                                                 iv = altura dentro da ilustração)
 function ruido(seed) {
   const h = (x, y) => {
     let n = (x * 374761393 + y * 668265263 + seed * 982451653) | 0;
@@ -47,7 +48,7 @@ function desenharAquarela({ posicionar, mascara }) {
 
           // 2. máscara com borda irregular e transição longa
           const k = n1(u * 7, v * 5) - .5, k2 = n2(u * 22, v * 16) - .5;
-          let a = Math.pow(mascara(u, v, k, k2), 1.1);
+          let a = Math.pow(mascara(u, v, k, k2, iv), 1.1);
 
           // 3. áreas claras somem antes das escuras (como pigmento diluído)
           const lum = (r + g + b) / 765;
