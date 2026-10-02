@@ -1,7 +1,6 @@
 # Convite — Danielly e Eduardo
 
-Convite de casamento no estilo papelaria fina, com tipografia em dourado clássico
-(nomes, dia e local em efeito folha de ouro): papel creme com textura de linho e
+Convite de casamento no estilo papelaria fina: papel creme com textura de linho e
 grão de algodão, tipografia caligráfica (Pinyon Script) e serifada em caixa-alta
 (Cormorant Garamond), bloco de data com fios finos, e a aquarela do Rancho dos
 Temperos e Tragos se dissolvendo no papel na parte de baixo.
