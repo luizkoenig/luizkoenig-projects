@@ -4,90 +4,13 @@
 <meta charset="utf-8">
 <title>Convite — Danielly e Eduardo</title>
 <meta name="viewport" content="width=1080">
+<link rel="stylesheet" href="estilo.css">
 <style>
-  @font-face { font-family: 'Pinyon Script'; src: url(fonts/PinyonScript-400.ttf); }
-  @font-face { font-family: 'Cormorant Garamond'; font-weight: 400; src: url(fonts/CormorantGaramond-400.ttf); }
-  @font-face { font-family: 'Cormorant Garamond'; font-weight: 500; src: url(fonts/CormorantGaramond-500.ttf); }
-  @font-face { font-family: 'Cormorant Garamond'; font-weight: 400; font-style: italic; src: url(fonts/CormorantGaramond-400i.ttf); }
-
-  :root {
-    --papel: #faf6ee;
-    --tinta: #33322e;
-    --tinta-suave: #66635b;
-    --verde: #7c8560;   /* tirado das palmeiras da aquarela */
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: #6b6f63; }
-
-  /* Cartão 5 x 7 */
-  .convite {
-    width: 1080px; height: 1512px; margin: 0 auto; position: relative; overflow: hidden;
-    background: var(--papel); color: var(--tinta);
-    font-family: 'Cormorant Garamond', serif; font-weight: 500;
-    font-variant-numeric: lining-nums;
-  }
-
-  /* Texturas: papel linho + grão de algodão + leve sombra nas bordas */
-  .textura { position: absolute; inset: 0; pointer-events: none; }
-  .textura.linho {
-    z-index: 4; background: url(assets/linho.jpg) center / 760px;
-    mix-blend-mode: multiply; opacity: .085;
-  }
-  .textura.grao {
-    z-index: 5;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .39  0 0 0 0 .33  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    mix-blend-mode: multiply; opacity: .14;
-  }
-  .textura.borda {
-    z-index: 6;
-    background: radial-gradient(ellipse 78% 70% at 50% 46%, transparent 62%, rgba(150, 128, 92, .09) 100%);
-  }
-  /* manchas de aquarela bem leves no alto, ecoando a ilustração */
-  .textura.lavado {
-    z-index: 0;
-    background:
-      radial-gradient(ellipse 340px 260px at 6% 4%, rgba(160, 172, 120, .16), transparent 70%),
-      radial-gradient(ellipse 300px 240px at 96% 9%, rgba(214, 190, 120, .14), transparent 70%);
-    filter: blur(6px);
-  }
-
-  /* Aquarela (canvas com máscara orgânica — ver script) */
-  #aquarela {
-    position: absolute; left: 0; bottom: 0; width: 1080px; height: 640px; z-index: 1;
-    mix-blend-mode: multiply;
-  }
-
-  .texto {
-    position: absolute; left: 0; right: 0; top: 0; z-index: 2;
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-  }
-  .caps { text-transform: uppercase; letter-spacing: .22em; font-size: 25px; line-height: 1.6; }
-  .script { font-family: 'Pinyon Script', cursive; font-weight: 400; line-height: 1; letter-spacing: 0; }
-  .italico { font-style: italic; font-weight: 400; }
-
-  /* versículo */
-  .versiculo { margin-top: 40px; font-size: 27px; line-height: 1.45; color: var(--tinta-suave); }
-  .versiculo .ref { margin-top: 6px; font-size: 17px; letter-spacing: .34em; font-style: normal; font-weight: 500; }
-
-  /* ornamento: fio — losango — fio */
-  .ornamento { display: flex; align-items: center; gap: 14px; color: var(--verde); }
-  .ornamento i { display: block; width: 70px; height: 1px; background: currentColor; opacity: .6; }
-  .ornamento b { display: block; width: 7px; height: 7px; border: 1px solid currentColor; transform: rotate(45deg); }
-
-  /* nomes */
-  .nome { font-size: 110px; }
-  .e-linha { display: flex; align-items: center; gap: 22px; margin: 4px 0 8px; color: var(--verde); }
-  .e-linha i { display: block; width: 110px; height: 1px; background: currentColor; opacity: .55; }
-  .e-linha span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 40px; line-height: 1; color: var(--tinta); }
-
-  /* data */
-  .data { display: grid; grid-template-columns: 270px 160px 270px; align-items: center; }
-  .data .lado { border-top: 1px solid rgba(51, 50, 46, .45); border-bottom: 1px solid rgba(51, 50, 46, .45); padding: 9px 0 8px; }
-  .data .dia { font-size: 104px; font-weight: 400; line-height: .9; }
-  .mes { margin-top: 2px; }
-
-  .local { font-size: 70px; }
-  .recepcao { margin-top: 8px; font-size: 26px; line-height: 1.4; color: var(--tinta); }
+  /* Cartão 5 x 7, retrato */
+  .convite { width: 1080px; height: 1512px; }
+  #aquarela { left: 0; bottom: 0; width: 1080px; height: 640px; }
+  .texto { left: 0; right: 0; top: 0; }
+  .versiculo { margin-top: 40px; }
 </style>
 </head>
 <body>
@@ -129,73 +52,17 @@
   <div class="textura borda"></div>
 </section>
 
+<script src="aquarela.js"></script>
 <script>
-  // Desenha a aquarela num canvas: o céu azul vira papel e a borda de cima
-  // se dissolve de forma irregular, como tinta escorrendo no papel molhado.
-  function ruido(seed) {
-    const h = (x, y) => {
-      let n = (x * 374761393 + y * 668265263 + seed * 982451653) | 0;
-      n = Math.imul(n ^ (n >>> 13), 1274126177);
-      return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
-    };
-    const suave = (t) => t * t * (3 - 2 * t);
-    const valor = (x, y) => {
-      const xi = Math.floor(x), yi = Math.floor(y), xf = suave(x - xi), yf = suave(y - yi);
-      const a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1), d = h(xi + 1, yi + 1);
-      return a + (b - a) * xf + (c - a) * yf + (a - b - c + d) * xf * yf;
-    };
-    return (x, y) => { // fbm, 0..1
-      let s = 0, amp = .5, f = 1;
-      for (let o = 0; o < 5; o++) { s += amp * valor(x * f, y * f); f *= 2.1; amp *= .5; }
-      return s / .97;
-    };
-  }
-  const passo = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-
-  window.aquarelaPronta = new Promise((ok) => {
-    const img = new Image();
-    img.onload = () => {
-      const cv = document.getElementById('aquarela'), W = cv.width, H = cv.height;
-      const ctx = cv.getContext('2d');
-      // ilustração um pouco maior que o cartão, presa embaixo
-      const lw = W * 1.04, lh = lw * img.naturalHeight / img.naturalWidth;
-      ctx.drawImage(img, (W - lw) / 2, H - lh + 240, lw, lh);
-
-      const d = ctx.getImageData(0, 0, W, H), p = d.data;
-      const n1 = ruido(7), n2 = ruido(31);
-      for (let y = 0; y < H; y++) {
-        const v = y / H;
-        for (let x = 0; x < W; x++) {
-          const i = (y * W + x) * 4, u = x / W;
-          let r = p[i], g = p[i + 1], b = p[i + 2];
-
-          // 1. céu azul e nuvens viram papel
-          const azul = b - Math.max(r, g);
-          let t = azul > 0 && b > 120 ? passo(8, 48, azul) : 0;
-          if (v < .42 && Math.min(r, g, b) > 190 && b >= r) t = Math.max(t, .9);
-          r += (255 - r) * t; g += (255 - g) * t; b += (255 - b) * t;
-
-          // 2. máscara: cúpula arredondada com borda irregular e transição longa
-          const k = n1(u * 7, v * 5) - .5, k2 = n2(u * 22, v * 16) - .5;
-          const dx = (u - .5) / .74, dy = (v - 1.04) / 1.0;
-          const dist = Math.sqrt(dx * dx + dy * dy) + k * .30 + k2 * .07;
-          let a = 1 - passo(.60, 1.06, dist);
-          a *= passo(0, .07, Math.min(u, 1 - u) + k * .05); // laterais esfumadas
-          a = Math.pow(a, 1.1);
-
-          // 3. áreas claras somem antes das escuras (como pigmento diluído)
-          const lum = (r + g + b) / 765;
-          a = Math.min(1, a * (1.12 - lum * .14));
-
-          // multiply sobre o papel: misturar com branco = transparência
-          p[i] = 255 - (255 - r) * a; p[i + 1] = 255 - (255 - g) * a; p[i + 2] = 255 - (255 - b) * a;
-        }
-      }
-      ctx.putImageData(d, 0, 0);
-      ok();
-    };
-    img.onerror = () => ok();
-    img.src = 'assets/aquarela.webp';
+  desenharAquarela({
+    // ilustração um pouco maior que o cartão, presa embaixo
+    posicionar: (W, H, iw, ih) => { const w = W * 1.04, h = w * ih / iw; return { x: (W - w) / 2, y: H - h + 240, w, h }; },
+    // cúpula arredondada a partir do pé do cartão, laterais esfumadas
+    mascara: (u, v, k, k2) => {
+      const dx = (u - .5) / .74, dy = (v - 1.04) / 1.0;
+      const dist = Math.sqrt(dx * dx + dy * dy) + k * .30 + k2 * .07;
+      return (1 - passo(.60, 1.06, dist)) * passo(0, .07, Math.min(u, 1 - u) + k * .05);
+    },
   });
 </script>
 </body>

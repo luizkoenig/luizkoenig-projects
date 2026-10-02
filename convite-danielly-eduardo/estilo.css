@@ -1,0 +1,80 @@
+/* Estilo comum às versões vertical (index.html) e horizontal (horizontal.html) */
+@font-face { font-family: 'Pinyon Script'; src: url(fonts/PinyonScript-400.ttf); }
+@font-face { font-family: 'Cormorant Garamond'; font-weight: 400; src: url(fonts/CormorantGaramond-400.ttf); }
+@font-face { font-family: 'Cormorant Garamond'; font-weight: 500; src: url(fonts/CormorantGaramond-500.ttf); }
+@font-face { font-family: 'Cormorant Garamond'; font-weight: 400; font-style: italic; src: url(fonts/CormorantGaramond-400i.ttf); }
+
+:root {
+  --papel: #faf6ee;
+  --tinta: #33322e;
+  --tinta-suave: #66635b;
+  --verde: #7c8560;   /* tirado das palmeiras da aquarela */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #6b6f63; }
+
+.convite {
+  margin: 0 auto; position: relative; overflow: hidden;
+  background: var(--papel); color: var(--tinta);
+  font-family: 'Cormorant Garamond', serif; font-weight: 500;
+  font-variant-numeric: lining-nums;
+}
+
+/* Texturas: papel linho + grão de algodão + leve sombra nas bordas */
+.textura { position: absolute; inset: 0; pointer-events: none; }
+.textura.linho {
+  z-index: 4; background: url(assets/linho.jpg) center / 760px;
+  mix-blend-mode: multiply; opacity: .085;
+}
+.textura.grao {
+  z-index: 5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .39  0 0 0 0 .33  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply; opacity: .14;
+}
+.textura.borda {
+  z-index: 6;
+  background: radial-gradient(ellipse 78% 70% at 50% 46%, transparent 62%, rgba(150, 128, 92, .09) 100%);
+}
+/* manchas de aquarela bem leves no alto, ecoando a ilustração */
+.textura.lavado {
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 340px 260px at 6% 4%, rgba(160, 172, 120, .16), transparent 70%),
+    radial-gradient(ellipse 300px 240px at 96% 9%, rgba(214, 190, 120, .14), transparent 70%);
+  filter: blur(6px);
+}
+
+/* Aquarela (canvas com máscara orgânica — ver aquarela.js) */
+#aquarela { position: absolute; z-index: 1; mix-blend-mode: multiply; }
+
+.texto {
+  position: absolute; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.caps { text-transform: uppercase; letter-spacing: .22em; font-size: 25px; line-height: 1.6; }
+.script { font-family: 'Pinyon Script', cursive; font-weight: 400; line-height: 1; letter-spacing: 0; }
+.italico { font-style: italic; font-weight: 400; }
+
+/* versículo */
+.versiculo { font-size: 27px; line-height: 1.45; color: var(--tinta-suave); }
+.versiculo .ref { margin-top: 6px; font-size: 17px; letter-spacing: .34em; font-style: normal; font-weight: 500; }
+
+/* ornamento: fio — losango — fio */
+.ornamento { display: flex; align-items: center; gap: 14px; color: var(--verde); }
+.ornamento i { display: block; width: 70px; height: 1px; background: currentColor; opacity: .6; }
+.ornamento b { display: block; width: 7px; height: 7px; border: 1px solid currentColor; transform: rotate(45deg); }
+
+/* nomes */
+.nome { font-size: 110px; }
+.e-linha { display: flex; align-items: center; gap: 22px; margin: 4px 0 8px; color: var(--verde); }
+.e-linha i { display: block; width: 110px; height: 1px; background: currentColor; opacity: .55; }
+.e-linha span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 40px; line-height: 1; color: var(--tinta); }
+
+/* data */
+.data { display: grid; grid-template-columns: 270px 160px 270px; align-items: center; }
+.data .lado { border-top: 1px solid rgba(51, 50, 46, .45); border-bottom: 1px solid rgba(51, 50, 46, .45); padding: 9px 0 8px; }
+.data .dia { font-size: 104px; font-weight: 400; line-height: .9; }
+.mes { margin-top: 2px; }
+
+.local { font-size: 70px; }
+.recepcao { margin-top: 8px; font-size: 26px; line-height: 1.4; color: var(--tinta); }

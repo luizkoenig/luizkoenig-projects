@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Convite — Danielly e Eduardo (horizontal)</title>
+<meta name="viewport" content="width=1512">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  /* Cartão 7 x 5, paisagem: aquarela à esquerda, texto à direita */
+  .convite { width: 1512px; height: 1080px; }
+  #aquarela { left: 0; top: 0; width: 900px; height: 1080px; }
+  .texto { left: 770px; right: 0; top: 0; bottom: 0; justify-content: center; padding-bottom: 6px; }
+
+  .caps { font-size: 24px; }
+  .versiculo { font-size: 25px; }
+  .versiculo .ref { font-size: 16px; }
+  .nome { font-size: 100px; }
+  .e-linha { margin: 2px 0 6px; }
+  .e-linha i { width: 96px; }
+  .e-linha span { font-size: 36px; }
+  .data { grid-template-columns: 240px 150px 240px; }
+  .data .dia { font-size: 96px; }
+  .local { font-size: 57px; }
+  .recepcao { font-size: 24px; }
+</style>
+</head>
+<body>
+<section class="convite">
+  <div class="textura lavado"></div>
+  <canvas id="aquarela" width="1800" height="2160"></canvas>
+
+  <div class="texto">
+    <div class="versiculo italico">
+      “Assim, eles já não são dois, mas sim uma só carne.<br>
+      Portanto, o que Deus uniu, ninguém separe.”
+      <div class="ref">MATEUS 19:6</div>
+    </div>
+
+    <div class="ornamento" style="margin-top:18px"><i></i><b></b><i></i></div>
+
+    <div class="caps" style="margin-top:16px">Com muita alegria</div>
+    <div class="script nome" style="margin-top:12px">Danielly</div>
+    <div class="e-linha"><i></i><span>e</span><i></i></div>
+    <div class="script nome">Eduardo</div>
+    <div class="caps" style="margin-top:12px">
+      convidam você para a celebração<br>de seu casamento
+    </div>
+
+    <div class="data caps" style="margin-top:18px">
+      <div class="lado">Sábado</div>
+      <div class="dia">05</div>
+      <div class="lado">às 16 horas</div>
+    </div>
+    <div class="caps mes">Dezembro · 2026</div>
+
+    <div class="script local" style="margin-top:14px">Rancho dos Temperos e Tragos</div>
+    <div class="caps" style="margin-top:2px">São Martinho · Santa Catarina</div>
+    <div class="italico recepcao">Após a cerimônia, os convidados serão recepcionados<br>no Salão de Pedra do local.</div>
+  </div>
+
+  <div class="textura linho"></div>
+  <div class="textura grao"></div>
+  <div class="textura borda"></div>
+</section>
+
+<script src="aquarela.js"></script>
+<script>
+  desenharAquarela({
+    // ilustração inteira, presa embaixo e sangrando pela esquerda
+    posicionar: (W, H, iw, ih) => {
+      const h = H * .78, w = h * iw / ih;
+      return { x: W * .50 - w * .53, y: H - h + 70, w, h };
+    },
+    // presa no canto inferior esquerdo, dissolvendo para a direita e para o topo
+    mascara: (u, v, k, k2) => {
+      const dx = (u - .40) / .60, dy = (v - 1.0) / .86;
+      const dist = Math.sqrt(dx * dx + dy * dy) + k * .30 + k2 * .07;
+      return 1 - passo(.55, 1.0, dist);
+    },
+  });
+</script>
+</body>
+</html>
