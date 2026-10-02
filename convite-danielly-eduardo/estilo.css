@@ -6,9 +6,12 @@
 
 :root {
   --papel: #faf6ee;
-  --tinta: #33322e;
-  --tinta-suave: #66635b;
-  --verde: #7c8560;   /* tirado das palmeiras da aquarela */
+  /* dourado clássico: textos pequenos num ouro fechado (legível no creme),
+     nomes, dia e local em "folha de ouro" (ver .folha) */
+  --tinta: #7d5f2a;
+  --tinta-suave: #977a4c;
+  --fio: #b0904f;
+  --folha: linear-gradient(170deg, #7a5a22 0%, #a8823e 28%, #d9bd7a 46%, #b48c45 58%, #8a6526 78%, #a98544 100%);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { background: #6b6f63; }
@@ -60,21 +63,28 @@ html, body { background: #6b6f63; }
 .versiculo .ref { margin-top: 6px; font-size: 17px; letter-spacing: .34em; font-style: normal; font-weight: 500; }
 
 /* ornamento: fio — losango — fio */
-.ornamento { display: flex; align-items: center; gap: 14px; color: var(--verde); }
+.ornamento { display: flex; align-items: center; gap: 14px; color: var(--fio); }
 .ornamento i { display: block; width: 70px; height: 1px; background: currentColor; opacity: .6; }
 .ornamento b { display: block; width: 7px; height: 7px; border: 1px solid currentColor; transform: rotate(45deg); }
 
 /* nomes */
 .nome { font-size: 110px; }
-.e-linha { display: flex; align-items: center; gap: 22px; margin: 4px 0 8px; color: var(--verde); }
+.e-linha { display: flex; align-items: center; gap: 22px; margin: 4px 0 8px; color: var(--fio); }
 .e-linha i { display: block; width: 110px; height: 1px; background: currentColor; opacity: .55; }
 .e-linha span { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 40px; line-height: 1; color: var(--tinta); }
 
 /* data */
 .data { display: grid; grid-template-columns: 270px 160px 270px; align-items: center; }
-.data .lado { border-top: 1px solid rgba(51, 50, 46, .45); border-bottom: 1px solid rgba(51, 50, 46, .45); padding: 9px 0 8px; }
+.data .lado { border-top: 1px solid var(--fio); border-bottom: 1px solid var(--fio); padding: 9px 0 8px; }
 .data .dia { font-size: 104px; font-weight: 400; line-height: .9; }
 .mes { margin-top: 2px; }
 
 .local { font-size: 70px; }
 .recepcao { margin-top: 8px; font-size: 26px; line-height: 1.4; color: var(--tinta); }
+
+/* Folha de ouro: gradiente recortado no texto. O padding dá espaço para os
+   floreios da caligrafia não saírem da área pintada; a margem negativa desfaz. */
+.folha {
+  background: var(--folha); -webkit-background-clip: text; background-clip: text;
+  color: transparent; padding: .22em .35em; margin: -.22em -.35em;
+}
