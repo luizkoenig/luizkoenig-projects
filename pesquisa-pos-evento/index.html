@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pesquisa Pós-Evento</title>
+<meta name="description" content="Pesquisa pós-evento — Assessoria & Cerimonial de Casamento. Anônima, leva poucos minutos.">
+<meta name="theme-color" content="#f7f1ea">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #f7f1ea;
+    --papel: #fffdf9;
+    --tinta: #3d2e2a;
+    --suave: #8a7a72;
+    --linha: #eadfd3;
+    --ouro: #b8925a;
+    --ouro-escuro: #9a7643;
+    --rosa: #e9c9c1;
+    --rosa-claro: #f6e7e2;
+    --erro: #b4473a;
+    --sombra: 0 18px 50px -24px rgba(91, 60, 40, .35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    min-height: 100vh; min-height: 100dvh;
+    font-family: 'Poppins', system-ui, sans-serif; font-weight: 300; color: var(--tinta);
+    background:
+      radial-gradient(1200px 600px at 110% -10%, #f3dcd3 0%, transparent 60%),
+      radial-gradient(900px 500px at -20% 110%, #efe2cf 0%, transparent 60%),
+      var(--fundo);
+    background-attachment: fixed;
+    line-height: 1.55;
+  }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+  textarea { font: inherit; color: inherit; }
+
+  /* ---------- moldura ---------- */
+  .topo {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(247, 241, 234, .86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent; transition: border-color .3s;
+  }
+  .topo.ativo { border-color: var(--linha); }
+  .topo-in { max-width: 720px; margin: 0 auto; padding: 14px 16px 12px; display: none; }
+  .topo.ativo .topo-in { display: block; }
+  .topo-linha { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--suave); margin-bottom: 8px; }
+  .barra { height: 4px; border-radius: 4px; background: var(--linha); overflow: hidden; }
+  .barra > i { display: block; height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, var(--rosa), var(--ouro)); transition: width .6s cubic-bezier(.2,.8,.2,1); }
+
+  main { max-width: 720px; margin: 0 auto; padding: 20px 16px 120px; }
+
+  .tela { display: none; animation: entra .55s cubic-bezier(.2,.8,.2,1); }
+  .tela.ativa { display: block; }
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .cartao {
+    background: var(--papel); border: 1px solid var(--linha); border-radius: 22px;
+    box-shadow: var(--sombra); padding: 28px 22px; margin-bottom: 18px;
+  }
+  @media (min-width: 600px) { .cartao { padding: 38px 40px; } }
+
+  /* ---------- capa ---------- */
+  .capa { text-align: center; padding-top: 34px; }
+  .ornamento { width: 120px; height: 30px; margin: 0 auto 14px; color: var(--ouro); }
+  .script { font-family: 'Great Vibes', cursive; font-weight: 400; color: var(--ouro); line-height: 1; }
+  .capa .script { font-size: 54px; margin-bottom: 4px; }
+  .capa h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 34px; line-height: 1.15; letter-spacing: .02em; }
+  .capa .sub { font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--suave); margin-top: 12px; }
+  .capa .texto { text-align: left; font-size: 15px; margin-top: 26px; color: #5a4a44; }
+  .capa .texto p + p { margin-top: 12px; }
+  .selo {
+    display: flex; gap: 14px; align-items: flex-start; text-align: left;
+    background: var(--rosa-claro); border-radius: 16px; padding: 16px 18px; margin-top: 22px; font-size: 14px;
+  }
+  .selo svg { flex: 0 0 22px; color: var(--ouro-escuro); margin-top: 2px; }
+  .selo b { font-weight: 500; display: block; margin-bottom: 2px; }
+  .infos { display: flex; justify-content: center; gap: 22px; margin: 26px 0 6px; font-size: 13px; color: var(--suave); flex-wrap: wrap; }
+  .infos span { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* ---------- botões ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 999px; font-weight: 400; font-size: 15px; letter-spacing: .04em;
+    background: var(--tinta); color: #fff; transition: transform .15s, background .2s, box-shadow .2s;
+    box-shadow: 0 10px 24px -12px rgba(61, 46, 42, .7);
+  }
+  .btn:hover { background: #2b201d; }
+  .btn:active { transform: scale(.97); }
+  .btn.ouro { background: linear-gradient(135deg, #c9a46d, var(--ouro-escuro)); }
+  .btn.claro { background: transparent; color: var(--tinta); box-shadow: none; border: 1px solid var(--linha); }
+  .btn[disabled] { opacity: .6; pointer-events: none; }
+  .navegacao {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    background: linear-gradient(to top, var(--fundo) 60%, rgba(247,241,234,0));
+    padding: 22px 16px calc(16px + env(safe-area-inset-bottom));
+  }
+  .navegacao-in { max-width: 720px; margin: 0 auto; display: flex; gap: 10px; justify-content: space-between; }
+  .navegacao .btn.claro { background: var(--papel); }
+  .navegacao .btn:last-child { flex: 1; max-width: 320px; margin-left: auto; }
+
+  /* ---------- seções ---------- */
+  .secao-cab { text-align: center; margin: 14px 0 22px; }
+  .secao-cab .num { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--ouro-escuro); }
+  .secao-cab h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 32px; line-height: 1.15; margin-top: 6px; }
+  .secao-cab .fio { width: 60px; height: 1px; background: var(--ouro); margin: 14px auto 0; opacity: .6; }
+
+  .pergunta { scroll-margin-top: 90px; }
+  .pergunta h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 22px; line-height: 1.25; display: flex; gap: 10px; }
+  .pergunta h3 .n { color: var(--ouro); font-weight: 500; flex: 0 0 auto; }
+  .pergunta h3 .obr { color: var(--ouro-escuro); }
+  .pergunta .dica { font-size: 13px; color: var(--suave); margin-top: 6px; }
+  .pergunta .corpo { margin-top: 18px; }
+  .pergunta .aviso { display: none; color: var(--erro); font-size: 13px; margin-top: 12px; }
+  .pergunta.faltando .aviso { display: block; }
+  .pergunta.faltando { animation: treme .4s; }
+  @keyframes treme { 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-3px); } }
+
+  /* opções em cartão */
+  .opcoes { display: grid; gap: 10px; }
+  .opcoes.duas { grid-template-columns: 1fr 1fr; }
+  .opcao {
+    display: flex; align-items: center; gap: 14px; text-align: left; width: 100%;
+    padding: 15px 16px; border-radius: 14px; border: 1.5px solid var(--linha); background: #fff;
+    transition: border-color .2s, background .2s, transform .12s; font-size: 15px;
+  }
+  .opcao:hover { border-color: var(--rosa); }
+  .opcao:active { transform: scale(.99); }
+  .opcao .marca {
+    flex: 0 0 22px; height: 22px; border-radius: 50%; border: 1.5px solid #cdbdb0;
+    display: grid; place-items: center; transition: all .2s;
+  }
+  .opcao .marca::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #fff; transform: scale(0); transition: transform .2s; }
+  .opcao .emo { font-size: 22px; flex: 0 0 auto; }
+  .opcao small { display: block; color: var(--suave); font-size: 12.5px; margin-top: 1px; }
+  .opcao[aria-checked="true"] { border-color: var(--ouro); background: #fbf5ec; }
+  .opcao[aria-checked="true"] .marca { border-color: var(--ouro); background: var(--ouro); }
+  .opcao[aria-checked="true"] .marca::after { transform: scale(1); }
+  .opcoes.grande .opcao { flex-direction: column; text-align: center; padding: 20px 12px; gap: 8px; }
+  .opcoes.grande .opcao .emo { font-size: 30px; }
+  .opcoes.grande .opcao .marca { display: none; }
+  .opcoes.grande .opcao b { font-weight: 500; }
+
+  /* escala numérica */
+  .escala { display: grid; gap: 8px; }
+  .escala .pontos { display: grid; gap: 6px; }
+  .escala .pontos button {
+    aspect-ratio: 1; min-height: 40px; border-radius: 12px; border: 1.5px solid var(--linha); background: #fff;
+    font-weight: 400; font-size: 16px; transition: all .18s;
+  }
+  .escala .pontos button:hover { border-color: var(--rosa); }
+  .escala .pontos button[aria-checked="true"] { color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: 0 8px 16px -8px rgba(91,60,40,.6); }
+  .escala .extremos { display: flex; justify-content: space-between; font-size: 12px; color: var(--suave); }
+  .escala .rotulo { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; min-height: 28px; color: var(--ouro-escuro); }
+  .escala.dez .pontos { grid-template-columns: repeat(5, 1fr); }
+  .escala.onze .pontos { grid-template-columns: repeat(6, 1fr); }
+  @media (min-width: 560px) {
+    .escala.dez .pontos { grid-template-columns: repeat(10, 1fr); }
+    .escala.onze .pontos { grid-template-columns: repeat(11, 1fr); }
+    .escala .pontos button { min-height: 0; }
+  }
+  .escala.cinco .pontos { grid-template-columns: repeat(5, 1fr); }
+  .escala.cinco .pontos button { aspect-ratio: auto; height: 64px; font-size: 26px; }
+
+  /* grade de avaliação */
+  .legenda { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 12px; color: var(--suave); margin-bottom: 14px; }
+  .legenda span { display: inline-flex; align-items: center; gap: 5px; }
+  .legenda i { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font-style: normal; font-size: 10px; color: #fff; }
+  .grade { display: grid; gap: 4px; }
+  .item {
+    display: grid; gap: 10px; padding: 14px 0; border-top: 1px solid var(--linha);
+  }
+  .item:first-child { border-top: 0; }
+  .item .rot { font-size: 15px; display: flex; justify-content: space-between; gap: 10px; }
+  .item .rot em { font-style: normal; font-size: 12px; color: var(--ouro-escuro); white-space: nowrap; opacity: 0; transition: opacity .2s; }
+  .item.ok .rot em { opacity: 1; }
+  .item .notas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .item .notas button {
+    height: 42px; border-radius: 10px; border: 1.5px solid var(--linha); background: #fff; font-size: 15px;
+    transition: all .16s;
+  }
+  .item .notas button:hover { border-color: var(--rosa); }
+  .item .notas button[aria-checked="true"] { color: #fff; border-color: transparent; transform: scale(1.06); }
+  .item.faltou .rot { color: var(--erro); }
+  @media (min-width: 640px) {
+    .item { grid-template-columns: 1fr 250px; align-items: center; }
+    .item .notas button { height: 40px; }
+  }
+  .contador { font-size: 12px; color: var(--suave); text-align: right; margin-top: 10px; }
+
+  /* texto livre */
+  .campo {
+    width: 100%; min-height: 120px; resize: vertical; padding: 14px 16px; border-radius: 14px;
+    border: 1.5px solid var(--linha); background: #fff; font-size: 15px; line-height: 1.5; outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .campo:focus { border-color: var(--ouro); box-shadow: 0 0 0 4px rgba(184,146,90,.15); }
+  .campo::placeholder { color: #b8aaa1; }
+  .condicional { display: none; }
+  .condicional.mostra { display: block; animation: entra .4s; }
+
+  /* final */
+  .final { text-align: center; padding-top: 30px; }
+  .final .coracao { width: 76px; height: 76px; margin: 0 auto 10px; color: var(--ouro); animation: pulsa 2.2s ease-in-out infinite; }
+  @keyframes pulsa { 50% { transform: scale(1.08); } }
+  .final .script { font-size: 56px; }
+  .final .texto { font-family: 'Cormorant Garamond', serif; font-size: 20px; line-height: 1.5; color: #5a4a44; margin-top: 18px; }
+  .final .texto p + p { margin-top: 14px; }
+  .final .assina { margin-top: 26px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--suave); }
+  .final .assina .script { display: block; font-size: 38px; letter-spacing: 0; text-transform: none; margin-top: 6px; }
+
+  .erro-envio { display: none; background: #fbeae6; color: var(--erro); border-radius: 14px; padding: 14px 16px; font-size: 14px; margin-bottom: 14px; }
+  .erro-envio.mostra { display: block; }
+  .giro { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: gira .8s linear infinite; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .honey { position: absolute; left: -9999px; }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="topo" id="topo">
+  <div class="topo-in">
+    <div class="topo-linha"><span id="topoSecao">Seção 1 de 8</span><span id="topoPct">0%</span></div>
+    <div class="barra"><i id="barra"></i></div>
+  </div>
+</header>
+
+<main id="app">
+  <!-- CAPA -->
+  <section class="tela ativa" data-tela="capa">
+    <div class="cartao capa">
+      <svg class="ornamento" viewBox="0 0 120 30" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <path d="M2 15h38M80 15h38"/><path d="M60 5c-6 0-10 4-10 10s4 10 10 10 10-4 10-10S66 5 60 5Z"/>
+        <path d="M60 9c2.8 2 4 4 4 6s-1.2 4-4 6c-2.8-2-4-4-4-6s1.2-4 4-6Z" fill="currentColor" fill-opacity=".25"/>
+        <circle cx="44" cy="15" r="1.5" fill="currentColor"/><circle cx="76" cy="15" r="1.5" fill="currentColor"/>
+      </svg>
+      <div class="script">Pesquisa</div>
+      <h1>Pós-Evento</h1>
+      <div class="sub">Assessoria &amp; Cerimonial de Casamento</div>
+
+      <div class="texto">
+        <p>Queremos continuar tornando cada celebração ainda mais especial. Por isso, a opinião de vocês é muito importante para nós. 💛</p>
+        <p>Este questionário avalia nossa assessoria, nossa equipe e os processos antes, durante e depois do casamento. As respostas vão nos mostrar o que estamos fazendo bem e, principalmente, onde podemos evoluir.</p>
+        <p>Pedimos apenas alguns minutos e, acima de tudo, sinceridade. Elogios nos mostram o que devemos manter; sugestões e críticas nos ajudam a evoluir.</p>
+      </div>
+
+      <div class="selo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>
+        <div><b>Esta pesquisa é anônima</b>Não é preciso informar o nome dos noivos. As respostas serão usadas só para avaliar e melhorar nossos serviços.</div>
+      </div>
+
+      <div class="infos">
+        <span>⏱ cerca de 5 minutos</span>
+        <span>✦ 8 etapas</span>
+      </div>
+
+      <div style="margin-top:18px">
+        <button class="btn ouro" id="comecar">Começar a pesquisa
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <p style="font-size:13px;color:var(--suave);margin-top:22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px">Obrigada por confiarem em nosso trabalho e por nos permitirem fazer parte de um momento tão importante da história de vocês. 🤍</p>
+    </div>
+  </section>
+
+  <!-- as seções são geradas pelo script -->
+  <div id="secoes"></div>
+
+  <!-- FINAL -->
+  <section class="tela" data-tela="final">
+    <div class="cartao final">
+      <svg class="coracao" viewBox="0 0 24 24" fill="currentColor" fill-opacity=".9" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.1 4.4 2.6.1.2.5.2.6 0 .8-1.5 2.3-2.6 4.4-2.6 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21Z"/></svg>
+      <div class="script">Muito obrigada!</div>
+      <div class="texto">
+        <p>Muito obrigada por dedicarem um pouco do tempo de vocês para compartilhar essa experiência conosco.</p>
+        <p>Cada resposta será lida com atenção e usada para aprimorarmos nossos processos, nossa equipe e a experiência que proporcionamos aos próximos casais.</p>
+        <p>Foi uma honra participar de um momento tão especial da história de vocês. Desejamos que essa nova etapa seja repleta de amor, companheirismo e muitos momentos inesquecíveis.</p>
+      </div>
+      <div class="assina">Com carinho,<span class="script">Equipe de Assessoria &amp; Cerimonial 🤍</span></div>
+    </div>
+  </section>
+</main>
+
+<nav class="navegacao" id="nav" hidden>
+  <div class="navegacao-in">
+    <button class="btn claro" id="voltar" aria-label="Voltar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+    </button>
+    <button class="btn" id="avancar">Continuar</button>
+  </div>
+</nav>
+
+<script>
+/* ============ CONFIGURAÇÃO ============ */
+const EMAIL_DESTINO = 'acarolcerimonialista@gmail.com';
+const ENDPOINT = 'https://formsubmit.co/ajax/' + EMAIL_DESTINO;
+
+/* Cores da escala 1 a 5 (do mais crítico ao mais feliz) */
+const COR5 = ['#c98b7b', '#d9a98a', '#cdb48c', '#b8a26a', '#b8925a'];
+const ROT5 = ['Muito insatisfeitos', 'Insatisfeitos', 'Regular', 'Satisfeitos', 'Muito satisfeitos'];
+
+/* ============ PERGUNTAS ============ */
+const SECOES = [
+  { titulo: 'Sobre o serviço contratado', perguntas: [
+    { id: 'modalidade', tipo: 'cartoes', obr: true, grande: true, texto: 'Qual modalidade de assessoria vocês contrataram?',
+      opcoes: [['Assessoria Completa', '💍'], ['Assessoria Parcial', '🤍']] },
+    { id: 'experiencia', tipo: 'escala5', obr: true, texto: 'De forma geral, como vocês avaliam a experiência com a nossa assessoria?',
+      extremos: ['Muito insatisfeitos', 'Muito satisfeitos'] },
+    { id: 'expectativas', tipo: 'opcoes', obr: true, texto: 'O serviço entregue correspondeu às expectativas de vocês?',
+      opcoes: ['Superou nossas expectativas', 'Correspondeu totalmente', 'Correspondeu parcialmente', 'Ficou abaixo das nossas expectativas'] },
+  ]},
+  { titulo: 'Planejamento e pré-evento', perguntas: [
+    { id: 'planejamento', tipo: 'grade', obr: true, texto: 'Como vocês avaliam os seguintes pontos durante o planejamento?',
+      itens: ['Clareza das informações e orientações', 'Organização do planejamento', 'Facilidade de comunicação', 'Tempo de resposta',
+        'Disponibilidade para esclarecer dúvidas', 'Organização das reuniões', 'Atenção aos detalhes', 'Segurança transmitida durante o processo',
+        'Cumprimento do que havia sido combinado'] },
+    { id: 'orientados', tipo: 'opcoes', obr: true, texto: 'Durante a preparação para o casamento, vocês sentiram que estavam bem orientados e seguros em relação ao andamento do evento?',
+      opcoes: ['Sim, totalmente', 'Na maior parte do tempo', 'Em alguns momentos', 'Não'] },
+    { id: 'melhor_preparacao', tipo: 'texto', obr: true, texto: 'O que poderíamos ter feito melhor durante o período de preparação para o casamento?',
+      placeholder: 'Contem pra gente com toda a sinceridade…' },
+  ]},
+  { titulo: 'Celebração matrimonial', perguntas: [
+    { id: 'cerimonia', tipo: 'grade', obr: true, texto: 'Como vocês avaliam nossa atuação durante a cerimônia?',
+      itens: ['Organização e orientação do cortejo', 'Orientação aos padrinhos e familiares', 'Pontualidade', 'Cumprimento do cronograma',
+        'Organização dos momentos da cerimônia', 'Postura profissional da equipe', 'Discrição durante a celebração', 'Atenção aos detalhes',
+        'Capacidade de solucionar imprevistos', 'Tranquilidade transmitida aos noivos'] },
+    { id: 'cerimonia_outra', tipo: 'texto', texto: 'Houve algum momento da cerimônia que, na opinião de vocês, poderia ter sido conduzido de outra maneira?' },
+  ]},
+  { titulo: 'Recepção e festa', perguntas: [
+    { id: 'festa', tipo: 'grade', texto: 'Como vocês avaliam nossa atuação durante a recepção/festa?',
+      itens: ['Organização da chegada dos noivos', 'Coordenação e comunicação com os fornecedores', 'Cumprimento do cronograma',
+        'Organização dos momentos especiais da festa', 'Atenção aos noivos', 'Atenção aos familiares', 'Orientação aos convidados quando necessária',
+        'Agilidade na resolução de imprevistos', 'Presença e disponibilidade da equipe', 'Organização durante todo o período contratado'] },
+    { id: 'aproveitar', tipo: 'opcoes', obr: true, texto: 'Durante a recepção, vocês conseguiram aproveitar o casamento sem precisar se preocupar com questões de organização?',
+      opcoes: ['Sim, completamente', 'Na maior parte do tempo', 'Em alguns momentos tivemos preocupações', 'Não'] },
+    { id: 'festa_melhorar', tipo: 'texto', texto: 'Existe algum ponto relacionado à recepção/festa que poderia ser melhorado?' },
+  ]},
+  { titulo: 'Nossa equipe', perguntas: [
+    { id: 'equipe', tipo: 'grade', texto: 'Como vocês avaliam a equipe que trabalhou no casamento?',
+      itens: ['Cordialidade', 'Educação', 'Postura profissional', 'Proatividade', 'Organização', 'Comunicação', 'Disponibilidade',
+        'Apresentação pessoal', 'Segurança transmitida', 'Integração entre os membros da equipe'] },
+    { id: 'equipe_situacao', tipo: 'cartoes', obr: true, duas: true, texto: 'Vocês perceberam alguma situação em que algum membro da equipe poderia ter agido de maneira diferente?',
+      opcoes: [['Sim'], ['Não']] },
+    { id: 'equipe_relato', tipo: 'texto', se: ['equipe_situacao', 'Sim'], texto: 'Contem-nos o que aconteceu e como acreditam que poderíamos melhorar.',
+      dica: 'Não é necessário informar o nome da profissional. Nosso objetivo é só usar esse retorno para aprimorar nossa equipe e nossos processos.' },
+  ]},
+  { titulo: 'Avaliação da cerimonialista', perguntas: [
+    { id: 'cerimonialista', tipo: 'grade', obr: true, texto: 'Como vocês avaliam a atuação da cerimonialista responsável pelo evento?',
+      itens: ['Organização', 'Liderança e condução da equipe', 'Comunicação', 'Disponibilidade', 'Atenção aos detalhes',
+        'Tranquilidade transmitida aos noivos', 'Capacidade de solucionar problemas', 'Presença nos momentos importantes',
+        'Cumprimento do que foi contratado', 'Postura profissional'] },
+    { id: 'cerimonialista_diferente', tipo: 'texto', texto: 'Houve algo na atuação da cerimonialista que vocês gostariam que tivesse sido diferente?' },
+  ]},
+  { titulo: 'Experiência final', perguntas: [
+    { id: 'nota_geral', tipo: 'escala', de: 1, ate: 10, obr: true, texto: 'Pensando em toda a experiência, qual nota vocês dariam para nossa assessoria?',
+      extremos: ['Muito insatisfeitos', 'Extremamente satisfeitos'] },
+    { id: 'recomendacao', tipo: 'escala', de: 0, ate: 10, texto: 'De 0 a 10, qual a probabilidade de vocês recomendarem nossa assessoria para outro casal?',
+      extremos: ['Não recomendaria', 'Com certeza recomendaria'] },
+    { id: 'mudar_uma_coisa', tipo: 'texto', texto: 'Se vocês pudessem mudar ou melhorar uma única coisa em nosso serviço, o que seria?' },
+    { id: 'algo_mais', tipo: 'texto', texto: 'Existe algo que não perguntamos e que vocês gostariam de nos contar?' },
+  ]},
+  { titulo: 'Depoimento', perguntas: [
+    { id: 'depoimento', tipo: 'opcoes', texto: 'Caso tenham deixado algum elogio ou comentário positivo nesta pesquisa, autorizam a utilização de um pequeno trecho como depoimento em nossas redes sociais e materiais de divulgação, sem qualquer identificação dos noivos?',
+      opcoes: ['Sim, autorizamos, desde que seja publicado de forma anônima', 'Não autorizamos'] },
+  ]},
+];
+
+/* ============ ESTADO ============ */
+const CHAVE = 'pesquisa-pos-evento-rascunho';
+let R = {};
+try { R = JSON.parse(localStorage.getItem(CHAVE) || '{}') || {}; } catch (e) { R = {}; }
+const salvar = () => { try { localStorage.setItem(CHAVE, JSON.stringify(R)); } catch (e) {} };
+
+let numero = 0;
+SECOES.forEach(s => s.perguntas.forEach(p => { p.n = ++numero; }));
+
+/* ============ MONTAGEM ============ */
+const el = (tag, attrs = {}, html = '') => { const e = document.createElement(tag); Object.assign(e, attrs); if (html) e.innerHTML = html; return e; };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function corEscala(v, de, ate) {
+  const t = (v - de) / (ate - de);
+  return COR5[Math.min(4, Math.round(t * 4))];
+}
+
+function montarPergunta(p) {
+  const box = el('div', { className: 'pergunta' + (p.se ? ' condicional' : ''), id: 'q-' + p.id });
+  box.innerHTML = `<h3><span class="n">${p.n}.</span><span>${esc(p.texto)}${p.obr ? ' <span class="obr">*</span>' : ''}</span></h3>` +
+    (p.dica ? `<p class="dica">${esc(p.dica)}</p>` : '');
+  const corpo = el('div', { className: 'corpo' });
+  box.append(corpo);
+
+  if (p.tipo === 'opcoes' || p.tipo === 'cartoes') {
+    const lista = el('div', { className: 'opcoes' + (p.grande ? ' grande duas' : '') + (p.duas ? ' duas' : ''), role: 'radiogroup' });
+    p.opcoes.forEach(o => {
+      const [rot, emo] = Array.isArray(o) ? o : [o];
+      const b = el('button', { type: 'button', className: 'opcao' });
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', R[p.id] === rot);
+      b.innerHTML = `<span class="marca"></span>${emo ? `<span class="emo">${emo}</span>` : ''}<b style="font-weight:400">${esc(rot)}</b>`;
+      b.onclick = () => {
+        R[p.id] = rot; salvar();
+        lista.querySelectorAll('.opcao').forEach(x => x.setAttribute('aria-checked', x === b));
+        box.classList.remove('faltando');
+        atualizarCondicionais();
+      };
+      lista.append(b);
+    });
+    corpo.append(lista);
+  }
+
+  if (p.tipo === 'escala5' || p.tipo === 'escala') {
+    const de = p.de ?? 1, ate = p.ate ?? 5;
+    const qtd = ate - de + 1;
+    const wrap = el('div', { className: 'escala ' + (qtd === 5 ? 'cinco' : qtd === 10 ? 'dez' : 'onze') });
+    const pontos = el('div', { className: 'pontos', role: 'radiogroup' });
+    const rotulo = el('div', { className: 'rotulo' });
+    const pintar = () => {
+      pontos.querySelectorAll('button').forEach(b => {
+        const v = +b.dataset.v, on = R[p.id] === v;
+        b.setAttribute('aria-checked', on);
+        b.style.background = on ? corEscala(v, de, ate) : '';
+      });
+      const v = R[p.id];
+      rotulo.textContent = v == null ? '' : (qtd === 5 ? ROT5[v - 1] : `Nota ${v}`);
+    };
+    for (let v = de; v <= ate; v++) {
+      const b = el('button', { type: 'button', textContent: v });
+      b.dataset.v = v; b.setAttribute('role', 'radio'); b.setAttribute('aria-label', String(v));
+      b.onclick = () => { R[p.id] = v; salvar(); pintar(); box.classList.remove('faltando'); };
+      pontos.append(b);
+    }
+    wrap.append(pontos, el('div', { className: 'extremos' }, `<span>${esc(p.extremos[0])}</span><span>${esc(p.extremos[1])}</span>`), rotulo);
+    corpo.append(wrap);
+    pintar();
+  }
+
+  if (p.tipo === 'grade') {
+    corpo.append(el('div', { className: 'legenda' }, ROT5.map((r, i) => `<span><i style="background:${COR5[i]}">${i + 1}</i>${r}</span>`).join('')));
+    const grade = el('div', { className: 'grade' });
+    const cont = el('div', { className: 'contador' });
+    R[p.id] = R[p.id] || {};
+    const contar = () => { cont.textContent = `${Object.keys(R[p.id]).length} de ${p.itens.length} avaliados`; };
+    p.itens.forEach(item => {
+      const linha = el('div', { className: 'item' });
+      const em = el('em');
+      const rot = el('div', { className: 'rot' }); rot.append(el('span', { textContent: item }), em);
+      const notas = el('div', { className: 'notas', role: 'radiogroup' });
+      notas.setAttribute('aria-label', item);
+      const pintar = () => {
+        const v = R[p.id][item];
+        notas.querySelectorAll('button').forEach(b => {
+          const on = +b.dataset.v === v;
+          b.setAttribute('aria-checked', on);
+          b.style.background = on ? COR5[v - 1] : '';
+        });
+        em.textContent = v ? ROT5[v - 1] : '';
+        linha.classList.toggle('ok', !!v);
+      };
+      for (let v = 1; v <= 5; v++) {
+        const b = el('button', { type: 'button', textContent: v });
+        b.dataset.v = v; b.setAttribute('role', 'radio'); b.setAttribute('aria-label', `${v} — ${ROT5[v - 1]}`);
+        b.onclick = () => {
+          R[p.id][item] = v; salvar(); pintar(); contar();
+          linha.classList.remove('faltou');
+          if (!p.itens.some(i => !R[p.id][i])) box.classList.remove('faltando');
+        };
+        notas.append(b);
+      }
+      linha.append(rot, notas);
+      grade.append(linha);
+      pintar();
+    });
+    corpo.append(grade, cont);
+    contar();
+  }
+
+  if (p.tipo === 'texto') {
+    const t = el('textarea', { className: 'campo', placeholder: p.placeholder || 'Escrevam aqui (opcional)…', value: R[p.id] || '' });
+    if (p.obr && !p.placeholder) t.placeholder = 'Escrevam aqui…';
+    t.oninput = () => { R[p.id] = t.value; salvar(); if (t.value.trim()) box.classList.remove('faltando'); };
+    corpo.append(t);
+  }
+
+  box.append(el('p', { className: 'aviso', textContent: p.tipo === 'grade' ? 'Avaliem todos os itens para continuar.' : 'Esta pergunta é obrigatória.' }));
+  return box;
+}
+
+const secoesEl = document.getElementById('secoes');
+SECOES.forEach((s, i) => {
+  const tela = el('section', { className: 'tela' });
+  tela.dataset.tela = 'secao';
+  tela.append(el('div', { className: 'secao-cab' }, `<div class="num">Seção ${i + 1} de ${SECOES.length}</div><h2>${esc(s.titulo)}</h2><div class="fio"></div>`));
+  s.perguntas.forEach(p => { const c = el('div', { className: 'cartao' }); c.append(montarPergunta(p)); tela.append(c); });
+  if (i === SECOES.length - 1) {
+    tela.append(el('div', { className: 'erro-envio', id: 'erroEnvio' }));
+    tela.append(el('input', { className: 'honey', type: 'text', name: '_honey', id: 'honey', tabIndex: -1, autocomplete: 'off' }));
+  }
+  secoesEl.append(tela);
+});
+
+function visivel(p) { return !p.se || R[p.se[0]] === p.se[1]; }
+function atualizarCondicionais() {
+  SECOES.forEach(s => s.perguntas.forEach(p => {
+    if (!p.se) return;
+    const box = document.getElementById('q-' + p.id);
+    box.classList.toggle('mostra', visivel(p));
+    box.closest('.cartao').style.display = visivel(p) ? '' : 'none';
+  }));
+}
+atualizarCondicionais();
+
+/* ============ NAVEGAÇÃO ============ */
+const telas = [...document.querySelectorAll('.tela')];
+let atual = 0;
+const nav = document.getElementById('nav');
+const avancar = document.getElementById('avancar');
+const topo = document.getElementById('topo');
+
+function ir(i) {
+  telas[atual].classList.remove('ativa');
+  atual = i;
+  telas[atual].classList.add('ativa');
+  const naSecao = atual >= 1 && atual <= SECOES.length;
+  nav.hidden = !naSecao;
+  topo.classList.toggle('ativo', naSecao);
+  if (naSecao) {
+    document.getElementById('topoSecao').textContent = `Seção ${atual} de ${SECOES.length}`;
+    const pct = Math.round(((atual - 1) / SECOES.length) * 100);
+    document.getElementById('topoPct').textContent = pct + '%';
+    document.getElementById('barra').style.width = pct + '%';
+    avancar.textContent = atual === SECOES.length ? 'Enviar respostas' : 'Continuar';
+    avancar.classList.toggle('ouro', atual === SECOES.length);
+  }
+  window.scrollTo(0, 0);
+}
+
+function validar(secao) {
+  let primeiro = null;
+  secao.perguntas.forEach(p => {
+    const box = document.getElementById('q-' + p.id);
+    box.classList.remove('faltando');
+    if (!p.obr || !visivel(p)) return;
+    let ok;
+    if (p.tipo === 'grade') {
+      ok = true;
+      box.querySelectorAll('.item').forEach((linha, k) => {
+        const falta = !R[p.id][p.itens[k]];
+        linha.classList.toggle('faltou', falta);
+        if (falta) ok = false;
+      });
+    } else if (p.tipo === 'texto') ok = !!(R[p.id] || '').trim();
+    else ok = R[p.id] != null;
+    if (!ok) { void box.offsetWidth; box.classList.add('faltando'); primeiro = primeiro || box; }
+  });
+  if (primeiro) primeiro.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return !primeiro;
+}
+
+document.getElementById('comecar').onclick = () => ir(1);
+document.getElementById('voltar').onclick = () => ir(atual - 1);
+avancar.onclick = () => {
+  if (!validar(SECOES[atual - 1])) return;
+  if (atual < SECOES.length) ir(atual + 1); else enviar();
+};
+
+/* ============ ENVIO POR E-MAIL ============ */
+function montarEmail() {
+  const dados = {
+    _subject: `Nova resposta — Pesquisa Pós-Evento (nota ${R.nota_geral ?? '—'}/10)`,
+    _template: 'table',
+    _captcha: 'false',
+    _honey: document.getElementById('honey').value,
+  };
+  SECOES.forEach((s, i) => s.perguntas.forEach(p => {
+    if (!visivel(p)) return;
+    const chave = `${p.n}. ${p.texto}`;
+    if (p.tipo === 'grade') {
+      p.itens.forEach(item => {
+        const v = R[p.id] && R[p.id][item];
+        dados[`${p.n}. ${item}`] = v ? `${v} — ${ROT5[v - 1]}` : '(sem resposta)';
+      });
+    } else if (p.tipo === 'escala5') {
+      dados[chave] = R[p.id] ? `${R[p.id]} — ${ROT5[R[p.id] - 1]}` : '(sem resposta)';
+    } else if (p.tipo === 'escala') {
+      dados[chave] = R[p.id] != null ? `${R[p.id]} de ${p.ate}` : '(sem resposta)';
+    } else {
+      dados[chave] = (R[p.id] || '').trim() || '(sem resposta)';
+    }
+  }));
+  return dados;
+}
+
+async function enviar() {
+  const erro = document.getElementById('erroEnvio');
+  erro.classList.remove('mostra');
+  avancar.disabled = true;
+  avancar.innerHTML = '<span class="giro"></span> Enviando…';
+  try {
+    const r = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(montarEmail()),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || String(j.success) === 'false') throw new Error(j.message || 'Falha no envio');
+    try { localStorage.removeItem(CHAVE); } catch (e) {}
+    ir(telas.length - 1);
+  } catch (e) {
+    erro.innerHTML = 'Não conseguimos enviar agora. Verifiquem a conexão e tentem de novo — suas respostas continuam salvas aqui. 🤍';
+    erro.classList.add('mostra');
+    erro.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    console.error(e);
+  } finally {
+    avancar.disabled = false;
+    avancar.textContent = 'Enviar respostas';
+  }
+}
+</script>
+</body>
+</html>
